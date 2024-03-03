@@ -1,0 +1,85 @@
+{
+  "name": "lapormik",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier -c -w ./.prettierrc.js \"./**/*.{js,jsx,ts,tsx,css}\"",
+    "ui:create": "pnpm dlx shadcn-ui add",
+    "db:generate": "pnpm dlx prisma generate",
+    "db:migrate": "pnpm dlx prisma migrate dev",
+    "prepare": "husky",
+    "commit": "cz"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
+    "@prisma/client": "^5.10.2",
+    "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.0.4",
+    "@radix-ui/react-tooltip": "^1.0.7",
+    "@tanstack/react-query": "^5.24.6",
+    "@tanstack/react-query-devtools": "^5.24.6",
+    "@tanstack/react-table": "^8.13.2",
+    "@types/bcrypt": "^5.0.2",
+    "bcrypt": "^5.1.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "date-fns": "^3.3.1",
+    "lucide-react": "^0.344.0",
+    "next": "14.1.1",
+    "next-auth": "^4.24.6",
+    "next-themes": "^0.2.1",
+    "prisma": "^5.10.2",
+    "radash": "^12.0.0",
+    "react": "^18",
+    "react-day-picker": "^8.10.0",
+    "react-dom": "^18",
+    "react-hook-form": "^7.51.0",
+    "sonner": "^1.4.3",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7",
+    "ts-pattern": "^5.0.8",
+    "vaul": "^0.9.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "autoprefixer": "^10.0.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.1.1",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": "eslint",
+    "**/*.{js,jsx,ts,tsx,css}": [
+      "prettier -c -w ./.prettierrc.js \"./src/**/*.{js,jsx,ts,tsx,css}\""
+    ]
+  }
+}
