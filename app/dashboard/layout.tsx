@@ -1,8 +1,4 @@
-import {
-  DashboardMain,
-  DashboardNavbar,
-  DashboardSidebar,
-} from '#/src/modules/dashboard'
+import { DashboardMain, DashboardNavbar, DashboardSidebar } from '#/modules/dashboard'
 
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'

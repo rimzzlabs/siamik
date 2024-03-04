@@ -1,4 +1,4 @@
-import { FORM_MESSAGE } from '#/src/constant/auth'
+import { FORM_MESSAGE } from '#/constant/auth'
 
 import { z } from 'zod'
 

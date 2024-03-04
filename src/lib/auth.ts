@@ -1,5 +1,5 @@
-import { signInWithEmail } from '@/service/auth'
-import { SignInSchema } from '@/validations/auth'
+import { signInWithEmail } from '#/service/auth'
+import { SignInSchema } from '#/validations/auth'
 
 import type { AuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
@@ -35,7 +35,10 @@ export const authConfig = {
 
         const [err, user] = await tryit(signInWithEmail)(zParse.data)
 
-        if (err) return null
+        if (err) {
+          console.info(err)
+          return null
+        }
 
         return {
           id: user.id,

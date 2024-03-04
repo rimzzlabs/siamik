@@ -1,5 +1,5 @@
-import { db } from '@/lib/db'
-import type { TSignInSchema } from '@/validations/auth'
+import { db } from '#/lib/db'
+import type { TSignInSchema } from '#/validations/auth'
 
 import bcrypt from 'bcrypt'
 

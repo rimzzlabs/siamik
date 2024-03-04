@@ -1,7 +1,8 @@
 'use client'
 
-import { buttonVariants } from '#/src/components/ui/button'
-import { cn } from '#/src/lib/utils'
+import { buttonVariants } from '#/components/ui/button'
+
+import { cn } from '#/lib/utils'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import * as React from 'react'

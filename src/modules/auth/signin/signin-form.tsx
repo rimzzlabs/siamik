@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '#/src/components/ui/button'
+import { Button } from '#/components/ui/button'
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '#/src/components/ui/card'
+} from '#/components/ui/card'
 import {
   Form,
   FormControl,
@@ -16,38 +16,54 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '#/src/components/ui/form'
-import { Input, InputPassword } from '#/src/components/ui/input'
-import { Separator } from '#/src/components/ui/separator'
-import type { TSignInSchema } from '#/src/validations/auth'
-import { SignInSchema } from '#/src/validations/auth'
+} from '#/components/ui/form'
+import { Input, InputPassword } from '#/components/ui/input'
+import { Separator } from '#/components/ui/separator'
+
+import type { TSignInSchema } from '#/validations/auth'
+import { SignInSchema } from '#/validations/auth'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 export function SignInForm() {
   const router = useRouter()
+  const [isPending, setIsPending] = useState(false)
 
   const form = useForm<TSignInSchema>({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(SignInSchema),
   })
 
-  const onSubmit = async (formValues: TSignInSchema) => {
-    const toastId = toast.loading('Memproses kredensial, harap tunggu...')
-
-    const res = await signIn('credentials', { ...formValues, redirect: false })
-    toast.dismiss(toastId)
-    if (res?.ok) {
-      toast.success('Berhasil masuk, mengalihkan...')
-      router.replace('/dashboard')
-      return
-    }
-    toast.error('Gagal masuk, cek email atau password anda')
+  const signInPromise = (formValues: TSignInSchema) => {
+    return new Promise(async (res, rej) => {
+      const resp = await signIn('credentials', { ...formValues, redirect: false })
+      if (resp?.ok) {
+        res(true)
+      }
+      rej(new Error('Invalid email or password'))
+    })
   }
+
+  const onSubmit = async (formValues: TSignInSchema) => {
+    setIsPending(true)
+
+    toast.promise(signInPromise(formValues), {
+      loading: 'Memproses kredensial',
+      error: 'Email atau password tidak valid',
+      finally: () => setIsPending(false),
+      success: () => {
+        router.replace('/dashboard')
+        return 'Berhasil masuk!'
+      },
+    })
+  }
+
+  const isPreventSubmit = isPending || !form.formState.isValid
 
   return (
     <Card className='w-full max-w-md mx-auto'>
@@ -72,7 +88,7 @@ export function SignInForm() {
                     <Input
                       type='email'
                       placeholder='Alamat email anda'
-                      disabled={form.formState.isSubmitting}
+                      disabled={isPending}
                       {...field}
                     />
                   </FormControl>
@@ -90,7 +106,7 @@ export function SignInForm() {
                   <FormControl>
                     <InputPassword
                       placeholder='Password anda'
-                      disabled={form.formState.isSubmitting}
+                      disabled={isPending}
                       {...field}
                     />
                   </FormControl>
@@ -101,12 +117,7 @@ export function SignInForm() {
           </CardContent>
 
           <CardFooter className='justify-end'>
-            <Button
-              isPending={form.formState.isSubmitting}
-              disabled={form.formState.isSubmitting || !form.formState.isValid}
-            >
-              Masuk
-            </Button>
+            <Button disabled={isPreventSubmit}>Masuk</Button>
           </CardFooter>
         </Form>
       </form>
