@@ -12,15 +12,13 @@ export default async function Home() {
 
   return (
     <main className='relative h-screen grid place-items-center bg-dot'>
-      <section className='text-center relative z-10'>
-        <h1 className='text-6xl lg:text-7xl font-bold text-center text-balance max-w-4xl dark:bg-gradient-to-b dark:from-white dark:to-black/80 dark:text-transparent bg-clip-text'>
+      <section className='text-center relative z-10 w-11/12 max-w-max'>
+        <h1 className='text-3xl sm:text-5xl lg:text-7xl font-bold text-center text-balance max-w-4xl dark:bg-gradient-to-b dark:from-white dark:to-black/80 dark:text-transparent bg-clip-text'>
           SIAMIK: Sistem Akademik AMIK Serang
         </h1>
-        <p className='text-balance py-4 max-w-4xl text-stone-700 dark:text-stone-400'>
+        <p className='text-balance text-sm lg:text-base py-4 max-w-2xl mx-auto text-stone-700 dark:text-stone-400'>
           Siamik adalah aplikasi website <em>back office</em> yang dikelola dan dimiliki
-          oleh Akademi Manajemen Informatika dan Komputer Serang. Sistem ini dibuat agar
-          memudahkan kampus dalam mengelola perkuliahan dan menggunakan sebuah sistem
-          akademik yang ter-<em>centralized</em> dan mudah digunakan.
+          oleh Akademi Manajemen Informatika dan Komputer Serang.
         </p>
 
         <Button asChild>
