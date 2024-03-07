@@ -7,15 +7,7 @@ import { id } from 'date-fns/locale'
 import { list, random, uid } from 'radash'
 import { useState } from 'react'
 import type { DateRange } from 'react-day-picker'
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts'
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip } from 'recharts'
 
 const chartsData = list(1, 30, (n) => ({
   id: uid(64),
@@ -52,8 +44,8 @@ export function DashboardPresence() {
               labelClassName='dark:!text-white'
               wrapperClassName='dark:!bg-background dark:!border-gray-800'
             />
-            <XAxis dataKey='date' className='text-xs' />
-            <YAxis className='text-xs' />
+            {/* <XAxis dataKey='date' className='text-xs' /> */}
+            {/* <YAxis className='text-xs' /> */}
             <Area
               type='basis'
               dataKey='semester 1'
@@ -75,7 +67,7 @@ export function DashboardPresence() {
               stroke='#6366f1'
               fill='#6366f1cc'
             />
-            <XAxis dataKey='date' className='text-xs fill-primary' />
+            {/* <XAxis dataKey='date' className='text-xs fill-primary' /> */}
           </AreaChart>
         </ResponsiveContainer>
       </section>

@@ -12,13 +12,6 @@ enum Role {
     SUPER_ADMIN
 }
 
-enum ReportStatus {
-    PENDING
-    REJECTED
-    PROCESSED
-    COMPLETED
-}
-
 model Session {
     id           String   @id @default(cuid())
     userId       String
@@ -42,15 +35,6 @@ model User {
     sessions  Session[]
 }
 
-model Report {
-    id          String       @id @default(cuid())
-    trackingId  String       @unique @default(cuid())
-    title       String
-    description String
-    createdAt   DateTime     @default(now())
-    status      ReportStatus @default(PENDING)
-}
-
 model VerificationRequest {
     id         String   @id @default(cuid())
     identifier String
@@ -60,4 +44,28 @@ model VerificationRequest {
     updatedAt  DateTime @updatedAt
 
     @@unique([identifier, token])
+}
+
+model Lecturer {
+    id        String     @id @default(cuid())
+    name      String
+    email     String     @unique
+    courses   Course[]   @relation("LecturerCourses")
+    semesters Semester[]
+}
+
+model Course {
+    id         String     @id @default(cuid())
+    name       String
+    semesterId String
+    credit     Int
+    semester   Semester   @relation(fields: [semesterId], references: [id])
+    lecturers  Lecturer[] @relation("LecturerCourses")
+}
+
+model Semester {
+    id        String     @id @default(cuid())
+    name      String
+    courses   Course[]
+    lecturers Lecturer[]
 }

@@ -1,45 +1,35 @@
 import { Button } from '#/components/ui/button'
 import { Card, CardHeader, CardTitle } from '#/components/ui/card'
 
-import {
-  ArrowUpRightFromSquareIcon,
-  LibraryBigIcon,
-  Users2Icon,
-  UsersIcon,
-} from 'lucide-react'
+import { courses, lecturers } from '#/mock/course'
+
+import { ArrowUpRightFromSquareIcon, LibraryBigIcon, Users2Icon } from 'lucide-react'
 import Link from 'next/link'
-import { random, uid } from 'radash'
+import { uid } from 'radash'
 
 const items = [
   {
     id: uid(64),
-    title: 'Mata Kuliah',
+    title: 'Jumlah Mata Kuliah',
     href: '/dashboard/course',
-    count: random(10, 150),
+    count: courses.length,
     icon: LibraryBigIcon,
   },
   {
     id: uid(64),
-    title: 'Dosen',
+    title: 'Jumlah Dosen',
     href: '/dashboard/lecturer',
-    count: random(10, 100),
+    count: lecturers.length,
     icon: Users2Icon,
-  },
-  {
-    id: uid(64),
-    title: 'Mahasiswa',
-    href: '/dashboard/student',
-    count: random(100, 200),
-    icon: UsersIcon,
   },
 ]
 
-export function DashboardCards() {
+export function CourseCards() {
   return (
     <div className='grid grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),1fr))] gap-2'>
       {items.map((item) => (
         <Card key={item.id} className='hover:border-primary transition'>
-          <CardHeader>
+          <CardHeader className='p-8'>
             <div className='inline-flex items-center align-middle gap-1 text-xl lg:text-2xl'>
               <item.icon size='1em' />
               <span className='font-bold'>{item.count}</span>
