@@ -9,6 +9,7 @@
     "lint": "next lint",
     "format": "prettier -c -w ./.prettierrc.js \"./**/*.{js,jsx,ts,tsx,css}\"",
     "ui:create": "pnpm dlx shadcn-ui add",
+    "clear:cache": "rm -rf ./.next",
     "db:generate": "pnpm dlx prisma generate",
     "db:migrate": "pnpm dlx prisma migrate dev",
     "prepare": "husky",
