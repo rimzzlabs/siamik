@@ -18,7 +18,7 @@ const dropdownItems = [
   { text: 'Sistem', value: 'system' },
 ]
 
-export function DashboardNavbarTheme() {
+export function DashboardNavbarThemeSwitch() {
   const { setTheme, resolvedTheme } = useTheme()
 
   const updateTheme = (newTheme: string) => setTheme(newTheme)

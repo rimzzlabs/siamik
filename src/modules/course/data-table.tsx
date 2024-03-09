@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from '#/components/ui/button'
+import { Card, CardContent } from '#/components/ui/card'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,7 +30,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { ClipboardIcon, MoreHorizontalIcon, PencilIcon, Trash2Icon } from 'lucide-react'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { toast } from 'sonner'
 
 const columnHelper = createColumnHelper<Course & { lecturer: Lecturer }>()
@@ -129,58 +130,107 @@ export function CourseDataTable(props: TProps) {
   })
 
   return (
-    <div className='rounded-md border mt-4'>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
-                return (
-                  <TableHead key={header.id} colSpan={header.getSize()}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                )
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} colSpan={cell.column.getSize()}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={columns.length} className='h-24 text-center'>
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-        {table.getFooterGroups().length > 0 && (
-          <TableFooter>
-            {table.getFooterGroups().map((group) => (
-              <TableRow key={group.id}>
-                {group.headers.map((header) => (
-                  <TableCell colSpan={header.getSize()} key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.footer, header.getContext())}
-                  </TableCell>
-                ))}
+    <Fragment>
+      <div className='rounded-md border mt-4 hidden md:block'>
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id} colSpan={header.getSize()}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  )
+                })}
               </TableRow>
             ))}
-          </TableFooter>
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id} colSpan={cell.column.getSize()}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className='h-24 text-center'>
+                  No results.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+          {table.getFooterGroups().length > 0 && (
+            <TableFooter>
+              {table.getFooterGroups().map((group) => (
+                <TableRow key={group.id}>
+                  {group.headers.map((header) => (
+                    <TableCell colSpan={header.getSize()} key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.footer,
+                            header.getContext(),
+                          )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableFooter>
+          )}
+        </Table>
+      </div>
+
+      <div className='py-4'>
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row) => (
+            <Card
+              className='mt-2 first-of-type:mt-0'
+              key={row.id}
+              data-state={row.getIsSelected() && 'selected'}
+            >
+              <CardContent className='grid grid-cols-2 gap-x-0.5 p-6'>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <div key={headerGroup.id} className='flex flex-col gap-2'>
+                    {headerGroup.headers.map((header) => (
+                      <span key={header.id} className='grow-0 text-sm font-medium'>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </span>
+                    ))}
+                  </div>
+                ))}
+
+                <div className='flex flex-col gap-2 p-0'>
+                  {row.getVisibleCells().map((cell) => (
+                    <span key={cell.id} className='grow-0 text-stone-300 text-sm'>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </span>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <div>
+            <div className='h-24 text-center'>No results.</div>
+          </div>
         )}
-      </Table>
-    </div>
+      </div>
+    </Fragment>
   )
 }
