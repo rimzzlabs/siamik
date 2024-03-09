@@ -51,7 +51,6 @@ export function SignInForm() {
   }
 
   const onSubmit = async (formValues: TSignInSchema) => {
-    router.prefetch('/dashboard', { kind: PrefetchKind.FULL })
     setIsPending(true)
 
     toast.promise(signInPromise(formValues), {
@@ -65,8 +64,8 @@ export function SignInForm() {
     })
   }
 
-  const refetchDashboardPage = () => {
-    router.prefetch('/dashboard', { kind: PrefetchKind.FULL })
+  const prefetchDashboard = () => {
+    router.prefetch('/dashboard', { kind: PrefetchKind.AUTO })
   }
 
   const isPreventSubmit = isPending || !form.formState.isValid
@@ -123,7 +122,7 @@ export function SignInForm() {
           </CardContent>
 
           <CardFooter className='justify-end'>
-            <Button onMouseEnter={refetchDashboardPage} disabled={isPreventSubmit}>
+            <Button onClick={prefetchDashboard} disabled={isPreventSubmit}>
               Masuk
             </Button>
           </CardFooter>
