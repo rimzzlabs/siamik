@@ -25,6 +25,7 @@ import { SignInSchema } from '#/validations/auth'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
+import { PrefetchKind } from 'next/dist/client/components/router-reducer/router-reducer-types'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -50,6 +51,7 @@ export function SignInForm() {
   }
 
   const onSubmit = async (formValues: TSignInSchema) => {
+    router.prefetch('/dashboard', { kind: PrefetchKind.FULL })
     setIsPending(true)
 
     toast.promise(signInPromise(formValues), {
@@ -61,6 +63,10 @@ export function SignInForm() {
         return 'Berhasil masuk!'
       },
     })
+  }
+
+  const refetchDashboardPage = () => {
+    router.prefetch('/dashboard', { kind: PrefetchKind.FULL })
   }
 
   const isPreventSubmit = isPending || !form.formState.isValid
@@ -117,7 +123,9 @@ export function SignInForm() {
           </CardContent>
 
           <CardFooter className='justify-end'>
-            <Button disabled={isPreventSubmit}>Masuk</Button>
+            <Button onMouseEnter={refetchDashboardPage} disabled={isPreventSubmit}>
+              Masuk
+            </Button>
           </CardFooter>
         </Form>
       </form>

@@ -1,6 +1,6 @@
 import { Button } from '#/components/ui/button'
 
-import { DashboardSidebarItem } from './dashboard-sidebar-item'
+import { DashboardMenuItem } from './menu-item'
 
 import {
   LayoutDashboardIcon,
@@ -18,11 +18,11 @@ const menuList = [
   },
 ]
 
-export function DashboardSidebarAdmin() {
+export function DashboardMenu(props: { insideSheet?: boolean }) {
   return (
     <nav className='flex flex-col gap-1.5'>
       {menuList.map((item) => (
-        <DashboardSidebarItem key={item.href} {...item} />
+        <DashboardMenuItem key={item.href} insideSheet={props.insideSheet} {...item} />
       ))}
 
       <Button className='w-full justify-normal gap-2' variant='ghost'>

@@ -15,7 +15,7 @@ import { uppercase } from '#/lib/utils'
 import { Loader2Icon, LogOutIcon } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 
-export function DashboardNavbarUser() {
+export function DashboardNavbarUserDropdown() {
   const session = useSession()
 
   const isPending = session.status === 'loading' || session.status === 'unauthenticated'
