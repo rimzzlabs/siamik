@@ -1,11 +1,11 @@
-import { getUser } from '#/service/user'
+import { getProfile } from '#/service/profile'
 
 import { DashboardMenu } from '../menu'
 
 import { P, match } from 'ts-pattern'
 
 export async function DashboardSidebar() {
-  const user = await getUser()
+  const user = await getProfile()
 
   if (!user) return null
 

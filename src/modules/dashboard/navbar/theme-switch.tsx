@@ -8,6 +8,8 @@ import {
   DropdownMenuTrigger,
 } from '#/components/ui/dropdown-menu'
 
+import { useMediaQuery } from '#/hooks/use-media-query'
+
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { match } from 'ts-pattern'
@@ -20,12 +22,14 @@ const dropdownItems = [
 
 export function DashboardNavbarThemeSwitch() {
   const { setTheme, resolvedTheme } = useTheme()
-
   const updateTheme = (newTheme: string) => setTheme(newTheme)
+  const isMobile = useMediaQuery('only screen and (max-width: 768px)')
 
   const icon = match(resolvedTheme)
     .with('dark', () => <MoonIcon size='1rem' />)
     .otherwise(() => <SunIcon size='1rem' />)
+
+  if (isMobile) return null
 
   return (
     <DropdownMenu>

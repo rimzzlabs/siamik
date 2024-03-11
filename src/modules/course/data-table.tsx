@@ -217,7 +217,7 @@ export function CourseDataTable(props: TProps) {
 
                 <div className='flex flex-col gap-2 p-0'>
                   {row.getVisibleCells().map((cell) => (
-                    <span key={cell.id} className='grow-0 text-stone-300 text-sm'>
+                    <span key={cell.id} className='grow-0 dark:text-stone-300 text-sm'>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </span>
                   ))}
