@@ -1,10 +1,12 @@
-import { FORM_MESSAGE } from '#/constant/auth'
+import { INVALID_FORM_MESSAGES } from '#/constant/auth'
+
+import { email } from './generic'
 
 import { z } from 'zod'
 
 export const SignInSchema = z.object({
-  email: z.string().min(1, FORM_MESSAGE.required).email(FORM_MESSAGE.invalidEmail),
-  password: z.string().min(1, FORM_MESSAGE.required),
+  email,
+  password: z.string().min(1, INVALID_FORM_MESSAGES.required),
 })
 
 export type TSignInSchema = z.infer<typeof SignInSchema>

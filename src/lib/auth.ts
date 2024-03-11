@@ -36,17 +36,24 @@ export const authConfig = {
         const [err, user] = await tryit(signInWithEmail)(zParse.data)
 
         if (err) {
-          console.info(err)
+          console.warn('error => ', err.message)
           return null
         }
+        if (!user.profile) return null
 
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
-          image: user.image,
+          name: user.profile.name,
+          image: user.profile.image,
+          role: user.profile.role,
         }
       },
     }),
   ],
+  callbacks: {
+    session(params) {
+      return params.session
+    },
+  },
 } satisfies AuthOptions

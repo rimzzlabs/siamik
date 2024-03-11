@@ -65,7 +65,7 @@ export function SignInForm() {
   }
 
   const prefetchDashboard = () => {
-    router.prefetch('/dashboard', { kind: PrefetchKind.AUTO })
+    router.prefetch('/dashboard', { kind: PrefetchKind.TEMPORARY })
   }
 
   const isPreventSubmit = isPending || !form.formState.isValid
@@ -122,7 +122,7 @@ export function SignInForm() {
           </CardContent>
 
           <CardFooter className='justify-end'>
-            <Button onClick={prefetchDashboard} disabled={isPreventSubmit}>
+            <Button onMouseEnter={prefetchDashboard} disabled={isPreventSubmit}>
               Masuk
             </Button>
           </CardFooter>

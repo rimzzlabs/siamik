@@ -8,7 +8,7 @@ export async function getUser() {
   if (!session) return null
 
   const [error, user] = await tryit(db.user.findUniqueOrThrow)({
-    where: { email: session.user.email },
+    where: { email: session.user.email, id: session.user.id },
   })
 
   if (error) return null
