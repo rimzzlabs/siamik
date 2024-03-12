@@ -1,7 +1,7 @@
 import { signInWithEmail } from '#/service/auth'
 import { SignInSchema } from '#/validations/auth'
 
-import type { AuthOptions } from 'next-auth'
+import { type AuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { tryit } from 'radash'
 

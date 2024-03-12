@@ -1,14 +1,15 @@
 import { Button } from '#/components/ui/button'
 import { Revealer } from '#/components/ui/revealer'
 
-import { getServerSession } from 'next-auth'
+import { getProfile } from '#/service/profile'
+
 import Link from 'next/link'
 
 export default async function Home() {
-  const session = await getServerSession()
+  const profile = await getProfile()
 
-  const wording = session ? 'Dashboard' : 'Masuk'
-  const href = session ? '/dashboard' : '/auth/signin'
+  const wording = profile ? 'Dashboard' : 'Masuk'
+  const href = profile ? '/dashboard' : '/auth/signin'
 
   return (
     <main className='relative h-screen grid place-items-center bg-dot'>

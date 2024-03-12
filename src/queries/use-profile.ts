@@ -1,19 +1,22 @@
 import type { Role } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 
-export function useProfile() {
+export type TUseProfile = {
+  id: string
+  name: string
+  email: string
+  image: string | null
+  role: Role
+}
+
+export function useProfile(initialData: TUseProfile) {
   return useQuery({
     queryKey: ['get-profile'],
     queryFn: async () => {
       const res = await fetch('/api/profile')
-      return (await res.json()) as TResponseApi<{
-        id: string
-        name: string
-        email: string
-        image: string | null
-        role: Role
-      }>
+      const data = (await res.json()) as TResponseApi<TUseProfile>
+      return data.data
     },
-    select: (data) => data.data,
+    initialData,
   })
 }
