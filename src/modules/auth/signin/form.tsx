@@ -25,9 +25,8 @@ import { SignInSchema } from '#/validations/auth'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from 'next-auth/react'
-import { PrefetchKind } from 'next/dist/client/components/router-reducer/router-reducer-types'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -58,17 +57,22 @@ export function SignInForm() {
       error: 'Email atau password tidak valid',
       finally: () => setIsPending(false),
       success: () => {
-        router.replace('/dashboard')
+        router.push('/dashboard')
         return 'Berhasil masuk!'
       },
     })
   }
 
   const prefetchDashboard = () => {
-    router.prefetch('/dashboard', { kind: PrefetchKind.TEMPORARY })
+    router.prefetch('/dashboard')
   }
 
   const isPreventSubmit = isPending || !form.formState.isValid
+
+  useEffect(() => {
+    prefetchDashboard()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Card className='w-full max-w-md mx-auto'>
@@ -122,9 +126,7 @@ export function SignInForm() {
           </CardContent>
 
           <CardFooter className='justify-end'>
-            <Button onMouseEnter={prefetchDashboard} disabled={isPreventSubmit}>
-              Masuk
-            </Button>
+            <Button disabled={isPreventSubmit}>Masuk</Button>
           </CardFooter>
         </Form>
       </form>

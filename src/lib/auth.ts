@@ -43,6 +43,7 @@ export const authConfig = {
 
         return {
           id: user.id,
+          userId: user.id,
           email: user.email,
           name: user.profile.name,
           image: user.profile.image,
@@ -52,8 +53,13 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    session(params) {
-      return params.session
+    session({ session, token }) {
+      const newSession = { ...session } as typeof session
+
+      if (token?.sub) {
+        newSession.user.userId = token.sub
+      }
+      return newSession
     },
   },
 } satisfies AuthOptions

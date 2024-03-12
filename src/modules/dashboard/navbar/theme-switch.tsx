@@ -24,12 +24,12 @@ const dropdownItems = [
 export function DashboardNavbarThemeSwitch() {
   const { setTheme, resolvedTheme } = useTheme()
   const updateTheme = (newTheme: string) => setTheme(newTheme)
-  const [isClient, setIsClient] = useState(false)
+  const [isServer, setIsServer] = useState(true)
 
   const isMobile = useMediaQuery('only screen and (max-width: 768px)')
 
-  const icon = match(isClient)
-    .with(true, () =>
+  const icon = match(isServer)
+    .with(false, () =>
       match(resolvedTheme)
         .with(P.string.includes('light'), () => <SunIcon size='1rem' />)
         .otherwise(() => <MoonIcon size='1rem' />),
@@ -37,15 +37,15 @@ export function DashboardNavbarThemeSwitch() {
     .otherwise(() => <Loader2Icon size='1rem' className='animate-spin' />)
 
   useEffect(() => {
-    setIsClient(true)
+    setIsServer(false)
   }, [])
 
   if (isMobile) return null
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button size='icon' variant='ghost' disabled={!isClient}>
+      <DropdownMenuTrigger className='hidden md:inline-flex' asChild>
+        <Button size='icon' variant='ghost' disabled={isServer}>
           {icon}
           <span className='sr-only'>Pilih Tema</span>
         </Button>

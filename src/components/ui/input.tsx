@@ -50,7 +50,7 @@ const InputPassword = React.forwardRef<HTMLInputElement, Omit<InputProps, 'type'
           onClick={toggle}
           type='button'
           variant='ghost'
-          className='absolute right-0 top-0 p-0 w-10'
+          className='absolute right-0 top-0.5 p-0 w-10'
         >
           <span className='sr-only'>Reveal or hide password</span>
           {inputType === 'password' ? (
