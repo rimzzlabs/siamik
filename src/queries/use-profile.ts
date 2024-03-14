@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query'
 export type TUseProfile = {
   id: string
   name: string
-  email: string
   image: string | null
   role: Role
 }
