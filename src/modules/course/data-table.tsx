@@ -112,16 +112,12 @@ const columns = [
   }),
 ]
 
-type TProps = {
-  data: Array<Course & { lecturer: Lecturer }>
-}
-
-export function CourseDataTable(props: TProps) {
+export function CourseDataTable() {
   const [sorting, setSorting] = useState<SortingState>([])
 
   const table = useReactTable({
     columns,
-    data: props.data,
+    data: [],
     debugTable: true,
     state: { sorting },
     onSortingChange: setSorting,
