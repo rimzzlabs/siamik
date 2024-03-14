@@ -1,7 +1,5 @@
 import { Card, CardHeader, CardTitle } from '#/components/ui/card'
 
-import { courses, lecturers } from '#/mock/course'
-
 import { LibraryBigIcon, Users2Icon } from 'lucide-react'
 import { uid } from 'radash'
 
@@ -10,14 +8,14 @@ const items = [
     id: uid(64),
     title: 'Jumlah Mata Kuliah',
     href: '/dashboard/course',
-    count: courses.length,
+    count: 10,
     icon: LibraryBigIcon,
   },
   {
     id: uid(64),
     title: 'Jumlah Dosen',
     href: '/dashboard/lecturer',
-    count: lecturers.length,
+    count: 10,
     icon: Users2Icon,
   },
 ]
