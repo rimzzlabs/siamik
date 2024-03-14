@@ -8,7 +8,7 @@ import * as React from 'react'
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type = 'text', ...props }, ref) => {
     return (
       <input
         type={type}
@@ -18,7 +18,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           'file:text-sm file:font-medium placeholder:text-muted-foreground',
           'focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 transition',
           'focus-visible:ring-1 focus-visible:ring-primary',
-          'aria-[invalid=true]:bg-destructive/10 aria-[invalid=true]:border-destructive',
+          'aria-[invalid=true]:bg-destructive/10 aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive',
           className,
         )}
         ref={ref}

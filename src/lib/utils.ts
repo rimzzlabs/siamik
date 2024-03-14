@@ -12,3 +12,16 @@ export function lowercase(text: string) {
 export function uppercase(text: string) {
   return text.toUpperCase()
 }
+
+export function createDefaultFormValues<TObject extends object>(
+  obj: Readonly<Array<keyof TObject>>,
+) {
+  return Object.entries(obj).reduce(
+    (acc, [, key]) => {
+      acc[key as keyof TObject] = ''
+      return acc
+    },
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    {} as { [K in keyof TObject]: '' } & {},
+  )
+}
