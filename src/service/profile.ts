@@ -11,10 +11,11 @@ export async function getProfile() {
 
   const [error, user] = await tryit(db.user.findUniqueOrThrow)({
     where: { id: session.user.userId },
-    select: { profile: true },
+    select: { profile: true, email: true },
   })
 
   if (error) return null
+  if (!user.profile) return null
 
-  return user.profile
+  return { email: user.email, ...user.profile }
 }
