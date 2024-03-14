@@ -1,13 +1,13 @@
 import { DashboardMain, DashboardNavbar, DashboardSidebar } from '#/modules/dashboard'
+import { getProfile } from '#/service/profile'
 
-import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { Fragment } from 'react'
 
 export default async function Layout(props: React.PropsWithChildren) {
-  const session = await getServerSession()
+  const profile = await getProfile()
 
-  if (!session) {
+  if (!profile) {
     redirect('/auth/signin')
   }
 

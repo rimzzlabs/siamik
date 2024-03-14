@@ -1,14 +1,14 @@
 import { Revealer } from '#/components/ui/revealer'
 
 import { SignInForm } from '#/modules/auth/signin'
+import { getProfile } from '#/service/profile'
 
-import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
 export default async function Page() {
-  const session = await getServerSession()
+  const profile = await getProfile()
 
-  if (session) {
+  if (profile) {
     redirect('/dashboard')
   }
 

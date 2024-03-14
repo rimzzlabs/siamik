@@ -3,6 +3,7 @@ import { Button } from '#/components/ui/button'
 import { DashboardMenuItem } from './menu-item'
 
 import {
+  CalendarDaysIcon,
   LayoutDashboardIcon,
   LibraryBigIcon,
   Users2Icon,
@@ -11,6 +12,11 @@ import {
 
 const menuList = [
   { href: '/dashboard', text: 'Dashboard', icon: <LayoutDashboardIcon size='1em' /> },
+  {
+    href: '/dashboard/semester',
+    text: 'Semester',
+    icon: <CalendarDaysIcon size='1em' />,
+  },
   {
     href: '/dashboard/course',
     text: 'Mata Kuliah',

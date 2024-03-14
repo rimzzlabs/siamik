@@ -1,7 +1,7 @@
 import { signInWithEmail } from '#/service/auth'
 import { SignInSchema } from '#/validations/auth'
 
-import type { AuthOptions } from 'next-auth'
+import { type AuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { tryit } from 'radash'
 
@@ -39,10 +39,10 @@ export const authConfig = {
           console.warn('error => ', err.message)
           return null
         }
-        if (!user.profile) return null
 
         return {
           id: user.id,
+          userId: user.id,
           email: user.email,
           name: user.profile.name,
           image: user.profile.image,
@@ -52,8 +52,13 @@ export const authConfig = {
     }),
   ],
   callbacks: {
-    session(params) {
-      return params.session
+    session({ session, token }) {
+      const newSession = { ...session } as typeof session
+
+      if (token?.sub) {
+        newSession.user.userId = token.sub
+      }
+      return newSession
     },
   },
 } satisfies AuthOptions
