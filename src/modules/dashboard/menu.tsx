@@ -22,6 +22,11 @@ const menuList = [
     text: 'Mata Kuliah',
     icon: <LibraryBigIcon size='1em' />,
   },
+  {
+    href: '/dashboard/lecturer',
+    text: 'Dosen',
+    icon: <Users2Icon size='1em' />,
+  },
 ]
 
 export function DashboardMenu(props: { insideSheet?: boolean }) {
@@ -31,10 +36,6 @@ export function DashboardMenu(props: { insideSheet?: boolean }) {
         <DashboardMenuItem key={item.href} insideSheet={props.insideSheet} {...item} />
       ))}
 
-      <Button className='w-full justify-normal gap-2' variant='ghost'>
-        <Users2Icon size='1rem' />
-        Dosen
-      </Button>
       <Button className='w-full justify-normal gap-2' variant='ghost'>
         <UsersIcon size='1rem' />
         Mahasiswa

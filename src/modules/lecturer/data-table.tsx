@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '#/components/ui/button'
 import {
   Table,
   TableBody,
@@ -10,12 +11,11 @@ import {
   TableRow,
 } from '#/components/ui/table'
 
-import { useSemester } from '#/queries/use-semester'
+import { useLecturer } from '#/queries/use-lecturer'
+import type { AllLecturer } from '#/service/lecturer'
 
-import { semesterColumns } from './column'
-import { CreateSemesterDialog } from './create-dialog'
+import { lecturerColumns } from './column'
 
-import type { Semester } from '@prisma/client'
 import type { SortingState } from '@tanstack/react-table'
 import {
   flexRender,
@@ -24,19 +24,20 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import { ScanSearchIcon } from 'lucide-react'
+import Link from 'next/link'
 import { Fragment, useState } from 'react'
 
-type TProps = {
-  data: Array<Semester>
+type DataTableProps = {
+  initialData: AllLecturer
 }
 
-export function SemesterDataTable(props: TProps) {
+export function LecturerDataTable(props: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const query = useSemester(props.data)
+  const query = useLecturer(props.initialData)
 
   const table = useReactTable({
     data: query.data,
-    columns: semesterColumns,
+    columns: lecturerColumns,
     debugTable: true,
     state: { sorting },
     onSortingChange: setSorting,
@@ -47,9 +48,10 @@ export function SemesterDataTable(props: TProps) {
   return (
     <Fragment>
       <div className='flex justify-end'>
-        <CreateSemesterDialog initialData={props.data} />
+        <Button asChild>
+          <Link href='/dashboard/lecturer/create'>Tambah Dosen</Link>
+        </Button>
       </div>
-
       <div className='rounded-md border mt-4'>
         <Table>
           <TableHeader>
@@ -84,7 +86,7 @@ export function SemesterDataTable(props: TProps) {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={semesterColumns.length}
+                  colSpan={lecturerColumns.length}
                   className='h-52 md:h-80 text-center space-y-2'
                 >
                   <ScanSearchIcon className='mx-auto' size='4rem' />

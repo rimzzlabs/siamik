@@ -54,21 +54,29 @@ model Student {
 }
 
 model Lecturer {
-    id        String     @id @default(cuid())
-    name      String
-    email     String     @unique
+    id    String @id @default(cuid())
+    name  String
+    email String @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
     courses   Course[]
     semesters Semester[]
 }
 
 model Course {
-    id         String             @id @default(cuid())
+    id         String @id @default(cuid())
     name       String
     semesterId String
     credit     Int
-    semester   Semester           @relation(fields: [semesterId], references: [id])
-    lecturers  Lecturer[]
-    students   CourseEnrollment[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    semester  Semester           @relation(fields: [semesterId], references: [id])
+    lecturers Lecturer[]
+    students  CourseEnrollment[]
 }
 
 model Semester {
@@ -88,6 +96,9 @@ model CourseEnrollment {
     studentId String
     course    Course  @relation(fields: [courseId], references: [id])
     courseId  String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     @@id([studentId, courseId])
 }
