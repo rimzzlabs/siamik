@@ -1,4 +1,4 @@
-import { INVALID_FORM_MESSAGES } from '#/constant/auth'
+import { INVALID_FORM_MESSAGES } from '#/constants/auth'
 
 import { email } from './generic'
 

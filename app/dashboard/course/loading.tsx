@@ -1,10 +1,11 @@
 import { Skeleton } from '#/components/ui/skeleton'
 
 import { Loader2Icon } from 'lucide-react'
+import { Fragment } from 'react'
 
 export default function Loading() {
   return (
-    <div>
+    <Fragment>
       <div className='flex gap-2'>
         <Skeleton className='w-full h-44 rounded-md' />
         <Skeleton className='w-full h-44 rounded-md' />
@@ -14,6 +15,6 @@ export default function Loading() {
         <Loader2Icon size='3rem' className='animate-spin' />
         <span className='sr-only'>Memuat data</span>
       </Skeleton>
-    </div>
+    </Fragment>
   )
 }

@@ -14,47 +14,80 @@ enum Role {
     SUPER_ADMIN
 }
 
-model User {
-    id        String  @id @default(cuid())
-    email     String  @unique
-    password  String
-    profileId String? @unique
+enum SemesterGrade {
+    FIRST
+    SECOND
+    THIRD
+    FOURTH
+    FIFTH
+    SIXTH
+}
 
+model User {
+    id        String   @id @default(cuid())
+    email     String   @unique
+    password  String
+    profileId String?  @unique
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    profile Profile? @relation(fields: [profileId], references: [id])
+    profile   Profile? @relation(fields: [profileId], references: [id])
 }
 
 model Profile {
     id    String  @id @default(cuid())
     name  String
-    email String  @unique
     image String?
     role  Role
     user  User?   @relation
+}
+
+model Student {
+    id         String             @id @default(cuid())
+    email      String             @unique
+    nim        String             @unique
+    name       String
+    semesterId String
+    createdAt  DateTime           @default(now())
+    updatedAt  DateTime           @updatedAt
+    courses    CourseEnrollment[]
+    semester   Semester           @relation(fields: [semesterId], references: [id])
 }
 
 model Lecturer {
     id        String     @id @default(cuid())
     name      String
     email     String     @unique
-    courses   Course[]   @relation("LecturerCourses")
+    courses   Course[]
     semesters Semester[]
 }
 
 model Course {
-    id         String     @id @default(cuid())
+    id         String             @id @default(cuid())
     name       String
     semesterId String
     credit     Int
-    semester   Semester   @relation(fields: [semesterId], references: [id])
-    lecturers  Lecturer[] @relation("LecturerCourses")
+    semester   Semester           @relation(fields: [semesterId], references: [id])
+    lecturers  Lecturer[]
+    students   CourseEnrollment[]
 }
 
 model Semester {
-    id        String     @id @default(cuid())
-    name      String
+    id    String        @id @default(cuid())
+    grade SemesterGrade @unique
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
     courses   Course[]
     lecturers Lecturer[]
+    students  Student[]
+}
+
+model CourseEnrollment {
+    student   Student @relation(fields: [studentId], references: [id])
+    studentId String
+    course    Course  @relation(fields: [courseId], references: [id])
+    courseId  String
+
+    @@id([studentId, courseId])
 }

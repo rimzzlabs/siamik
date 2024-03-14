@@ -39,7 +39,6 @@ export const authConfig = {
           console.warn('error => ', err.message)
           return null
         }
-        if (!user.profile) return null
 
         return {
           id: user.id,

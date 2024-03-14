@@ -42,7 +42,7 @@ export function DashboardNavbarUserDropdown(props: TProps) {
       <DropdownMenuTrigger disabled={query.isPending} asChild>
         <Button variant='ghost' size='icon'>
           {query.isPending && <Loader2Icon size='1rem' className='animate-spin' />}
-          {query.isSuccess && query.data.image ? (
+          {query.isSuccess && query.data?.image ? (
             <Image
               src={query.data.image}
               alt={query.data.name}
