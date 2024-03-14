@@ -31,7 +31,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 type TProps = {
-  profile: { id: string; name: string; email: string; image: string | null; role: Role }
+  profile: { id: string; name: string; image: string | null; role: Role }
 }
 
 export function DashboardNavbarUserDropdown(props: TProps) {
