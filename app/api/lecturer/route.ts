@@ -11,6 +11,7 @@ import { createLecturer, getAllLecturer, updateLecturer } from '#/service/lectur
 import { getProfile } from '#/service/profile'
 import { CreateLecturerSchema, UpdateLecturerSchema } from '#/validations/lecturer'
 
+import { revalidatePath } from 'next/cache'
 import type { NextRequest } from 'next/server'
 import { tryit } from 'radash'
 
@@ -30,6 +31,7 @@ export async function POST(req: NextRequest) {
     return serverError(error)
   }
 
+  revalidatePath('/dashboard/lecturer', 'page')
   return created(data)
 }
 
@@ -55,5 +57,6 @@ export async function PATCH(req: NextRequest) {
   const [error, data] = await tryit(updateLecturer)(parse.data)
   if (error) return serverError(error)
 
+  revalidatePath('/dashboard/lecturer', 'page')
   return created(data)
 }

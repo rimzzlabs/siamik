@@ -1,3 +1,4 @@
+import { Confirmation } from '#/components/confirmation'
 import { Providers } from '#/components/providers'
 
 import './globals.css'
@@ -17,6 +18,7 @@ export default function RootLayout(props: React.PropsWithChildren) {
     <html lang='id' suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>{props.children}</Providers>
+        <Confirmation />
       </body>
     </html>
   )
