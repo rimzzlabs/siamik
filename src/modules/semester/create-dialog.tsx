@@ -68,7 +68,7 @@ export function CreateSemesterDialog(props: TProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogTrigger disabled={maxSemester === query.data.length} asChild>
+      <DialogTrigger disabled={maxSemester === query.data?.length ?? 0} asChild>
         <Button>Tambah data</Button>
       </DialogTrigger>
 
