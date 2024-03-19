@@ -24,8 +24,9 @@ import type { TSignInSchema } from '#/validations/auth'
 import { SignInSchema } from '#/validations/auth'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { sleep } from 'radash'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -33,6 +34,7 @@ import { toast } from 'sonner'
 export function SignInForm() {
   const router = useRouter()
   const [isPending, setIsPending] = useState(false)
+  const session = useSession()
 
   const form = useForm<TSignInSchema>({
     defaultValues: { email: '', password: '' },
@@ -57,22 +59,23 @@ export function SignInForm() {
       error: 'Email atau password tidak valid',
       finally: () => setIsPending(false),
       success: () => {
-        router.push('/dashboard')
+        toast.info('Anda akan diarahkan ke dashboard dalam beberapa saat')
         return 'Berhasil masuk!'
       },
     })
   }
 
-  const prefetchDashboard = () => {
-    router.prefetch('/dashboard')
-  }
-
   const isPreventSubmit = isPending || !form.formState.isValid
 
   useEffect(() => {
-    prefetchDashboard()
+    ;(async () => {
+      if (session.status === 'authenticated') {
+        await sleep(50)
+        router.push('/dashboard')
+      }
+    })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [session.status])
 
   return (
     <Card className='w-full max-w-md mx-auto'>

@@ -2,6 +2,7 @@ import { badRequest, ok, serverError, unauthorized } from '#/lib/api-route'
 import { deleteLecturer } from '#/service/lecturer'
 import { getProfile } from '#/service/profile'
 
+import { revalidatePath } from 'next/cache'
 import type { NextRequest } from 'next/server'
 import { tryit } from 'radash'
 
@@ -21,5 +22,6 @@ export async function DELETE(req: NextRequest, ctx: { params: Params }) {
 
   if (error) return serverError(error)
 
+  revalidatePath('/dashboard/lecturer', 'page')
   return ok({ id: res.id })
 }

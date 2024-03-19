@@ -49,7 +49,7 @@ export function LecturerDataTable(props: DataTableProps) {
     <Fragment>
       <div className='flex justify-end'>
         <Button asChild>
-          <Link href='/dashboard/lecturer/create'>Tambah Dosen</Link>
+          <Link href='/dashboard/lecturer/manage'>Tambah Dosen</Link>
         </Button>
       </div>
       <div className='rounded-md border mt-4'>
