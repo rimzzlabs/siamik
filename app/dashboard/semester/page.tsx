@@ -1,6 +1,5 @@
-import { PageTitle } from '#/components/ui/page-title'
-
 import { SemesterDataTable } from '#/modules/semester/data-table'
+import { SemesterPageTitle } from '#/modules/semester/page-title'
 import { getAllSemester } from '#/service/semester'
 
 import { Fragment } from 'react'
@@ -10,9 +9,9 @@ export default async function Page() {
 
   return (
     <Fragment>
-      <PageTitle title='Kelola Semester' />
+      <SemesterPageTitle />
 
-      <SemesterDataTable data={data ?? []} />
+      <SemesterDataTable data={data} />
     </Fragment>
   )
 }

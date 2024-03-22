@@ -8,7 +8,7 @@ export function DashboardMain(props: React.ComponentPropsWithoutRef<'main'>) {
         props.className,
       )}
     >
-      <div className='p-4'>{props.children}</div>
+      <div className='p-4 lg:px-6'>{props.children}</div>
     </main>
   )
 }

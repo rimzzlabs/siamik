@@ -13,7 +13,7 @@ import { useCourse } from '#/queries/use-course'
 
 import { courseColumns } from './columns'
 
-import type { Course } from '@prisma/client'
+import type { Course, Semester } from '@prisma/client'
 import type { SortingState } from '@tanstack/react-table'
 import {
   flexRender,
@@ -25,7 +25,7 @@ import { ScanSearchIcon } from 'lucide-react'
 import { Fragment, useState } from 'react'
 
 type TCourseDataTableProps = {
-  initialData?: Array<Course>
+  initialData?: Array<Course & { semester: Semester }>
 }
 
 export function CourseDataTable(props: TCourseDataTableProps) {

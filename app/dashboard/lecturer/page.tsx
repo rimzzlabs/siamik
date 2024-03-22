@@ -1,6 +1,5 @@
-import { PageTitle } from '#/components/ui/page-title'
-
 import { LecturerDataTable } from '#/modules/lecturer'
+import { LecturerPageTitle } from '#/modules/lecturer/page-title'
 import { getAllLecturer } from '#/service/lecturer'
 
 import { Fragment } from 'react'
@@ -10,7 +9,7 @@ export default async function Page() {
 
   return (
     <Fragment>
-      <PageTitle title='Kelola Dosen' />
+      <LecturerPageTitle />
 
       <LecturerDataTable initialData={lecturers} />
     </Fragment>

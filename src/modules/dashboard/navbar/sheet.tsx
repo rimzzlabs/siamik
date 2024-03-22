@@ -49,8 +49,10 @@ export function NavbarSheet() {
           <p className='sr-only'>Tema Aplikasi</p>
           <ToggleGroup
             type='single'
-            value={theme.resolvedTheme}
-            onValueChange={theme.setTheme}
+            value={theme.theme}
+            onValueChange={(val) => {
+              val && theme.setTheme(val)
+            }}
             className='grid grid-cols-3'
           >
             {toggleItems.map((item) => (

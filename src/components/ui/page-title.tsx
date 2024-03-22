@@ -9,6 +9,7 @@ type TPageTitleProps = {
   action?: {
     text: string
     onClick?: React.MouseEventHandler<HTMLButtonElement>
+    disabled?: boolean
   }
 }
 
@@ -23,7 +24,9 @@ export function PageTitle(props: TPageTitleProps) {
       <h1 className='text-2xl lg:text-4xl font-bold'>{props.title}</h1>
 
       {props.action && (
-        <Button onClick={props.action.onClick}>{props.action.text}</Button>
+        <Button onClick={props.action.onClick} disabled={props.action.disabled}>
+          {props.action.text}
+        </Button>
       )}
     </section>
   )
