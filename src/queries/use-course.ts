@@ -1,12 +1,14 @@
 import type { TCourseSchema, TCourseUpdateSchema } from '#/validations/course'
 
-import type { Course } from '@prisma/client'
+import type { Course, Semester } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 async function getCourse() {
   const resp = await fetch('/api/course')
   if (!resp.ok) throw new Error(resp.statusText)
-  const data = (await resp.json()) as TResponseApi<Array<Course>>
+  const data = (await resp.json()) as TResponseApi<
+    Array<Course & { semester: Semester }>
+  >
 
   return data.data
 }
@@ -42,7 +44,7 @@ async function deleteCourse(courseId: string) {
   return await resp.json()
 }
 
-export function useCourse(initialData: Array<Course> = []) {
+export function useCourse(initialData: Array<Course & { semester: Semester }> = []) {
   return useQuery({ queryKey: ['get-all-course'], queryFn: getCourse, initialData })
 }
 

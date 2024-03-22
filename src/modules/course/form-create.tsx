@@ -174,6 +174,7 @@ export function FormCreateCourse(props: TProps) {
               <Button
                 type='button'
                 variant='ghost'
+                disabled={isPending}
                 onClick={() => props.onOpenChange(false)}
               >
                 Batal
@@ -181,7 +182,7 @@ export function FormCreateCourse(props: TProps) {
 
               <Button disabled={isPending}>
                 {isPending && <Loader2Icon size='1rem' className='animate-spin mr-1' />}
-                {isPending ? 'Menambahkan' : 'Tambah'}
+                Tambah
               </Button>
             </DialogFooter>
           </Form>

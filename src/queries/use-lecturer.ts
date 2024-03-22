@@ -1,5 +1,8 @@
 import type { AllLecturer } from '#/service/lecturer'
-import type { TCreateLecturerSchema } from '#/validations/lecturer'
+import type {
+  TCreateLecturerSchema,
+  TUpdateLecturerSchema,
+} from '#/validations/lecturer'
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -40,7 +43,7 @@ export function useCreateLecturer() {
 export function useUpdateLecturer() {
   const qc = useQueryClient()
   return useMutation({
-    mutationFn: async (payload: TCreateLecturerSchema) => {
+    mutationFn: async (payload: TUpdateLecturerSchema) => {
       const body = JSON.stringify(payload)
 
       const resp = await fetch('/api/lecturer', {

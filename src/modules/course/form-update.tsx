@@ -204,7 +204,7 @@ export function FormUpdateCourse(props: TProps) {
 
               <Button disabled={isPending}>
                 {isPending && <Loader2Icon size='1rem' className='animate-spin mr-1' />}
-                {isPending ? 'Memperbarui' : 'Perbarui'}
+                Perbarui
               </Button>
             </DialogFooter>
           </Form>

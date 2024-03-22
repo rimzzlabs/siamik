@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '#/components/ui/button'
-import { Dialog, DialogTrigger } from '#/components/ui/dialog'
+import { Dialog } from '#/components/ui/dialog'
 import {
   DialogContent,
   DialogDescription,
@@ -25,53 +25,49 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 
+import { useToggle } from '#/hooks/use-toggle'
+
 import { semesterGradeOptions } from '#/constants/semester'
-import { useCreateSemester, useSemester } from '#/queries/use-semester'
+import { useCreateSemester } from '#/queries/use-semester'
 import type { TSemesterSchema } from '#/validations/semester'
 import { SemesterSchema } from '#/validations/semester'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { Semester } from '@prisma/client'
 import { Loader2Icon } from 'lucide-react'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-type TProps = {
-  initialData: Array<Semester>
+type TFormCreateSemesterProps = {
+  open: boolean
+  onOpenChange: (nextValue: boolean) => void
 }
+export function FormCreateSemester(props: TFormCreateSemesterProps) {
+  const [isPending, togglePending] = useToggle()
 
-export function CreateSemesterDialog(props: TProps) {
-  const [isOpen, setIsOpen] = useState(false)
   const mutation = useCreateSemester()
-  const query = useSemester(props.initialData)
+
   const form = useForm<TSemesterSchema>({
     resolver: zodResolver(SemesterSchema),
   })
 
   const onSubmit = async (formValues: TSemesterSchema) => {
+    togglePending(true)
     toast.promise(mutation.mutateAsync(formValues), {
       loading: 'Memproses, harap tunggu...',
       error: 'Semester ini sudah ada, harap jangan menambahkan semester lain',
       success: 'Berhasil menambahkan semester',
       finally() {
         mutation.reset()
-        setIsOpen(false)
+        togglePending(false)
       },
     })
   }
   const onOpenChange = (nextValue: boolean) => {
-    !mutation.isPending && setIsOpen(nextValue)
+    !mutation.isPending && props.onOpenChange(nextValue)
   }
 
-  const maxSemester = 6
-
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogTrigger disabled={maxSemester === query.data?.length ?? 0} asChild>
-        <Button>Tambah data</Button>
-      </DialogTrigger>
-
+    <Dialog open={props.open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Tambah data semester</DialogTitle>
@@ -111,11 +107,11 @@ export function CreateSemesterDialog(props: TProps) {
           </Form>
 
           <DialogFooter>
-            <Button disabled={mutation.isPending}>
+            <Button disabled={isPending}>
               {mutation.isPending && (
                 <Loader2Icon size='1rem' className='animate-spin' />
               )}
-              {mutation.isPending ? 'Menambahkan' : 'Tambah'}
+              Tambah
             </Button>
           </DialogFooter>
         </form>
