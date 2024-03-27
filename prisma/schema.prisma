@@ -45,7 +45,9 @@ model Student {
     id         String             @id @default(cuid())
     email      String             @unique
     nim        String             @unique
+    password   String
     name       String
+    image      String?
     semesterId String
     createdAt  DateTime           @default(now())
     updatedAt  DateTime           @updatedAt

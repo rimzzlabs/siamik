@@ -3,7 +3,7 @@ import type { TSemesterSchema } from '#/validations/semester'
 import type { Semester } from '@prisma/client'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-export function useSemester(initialData: Array<Semester> = []) {
+export function useSemester(initialData?: Array<Semester>) {
   return useQuery({
     queryKey: ['get-all-semester'],
     queryFn: async () => {
