@@ -13,7 +13,7 @@ export const password = z
   .min(8, INVALID_FORM_MESSAGES.minPassword)
   .max(80, INVALID_FORM_MESSAGES.maxPassword)
   .regex(regex.symbolPassword, INVALID_FORM_MESSAGES.symbolPassword)
-  .regex(regex.numberPassword)
+  .regex(regex.numberPassword, INVALID_FORM_MESSAGES.numberSymbol)
 
 export const email = z
   .string()

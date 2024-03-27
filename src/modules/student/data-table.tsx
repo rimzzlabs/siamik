@@ -10,11 +10,11 @@ import {
   TableRow,
 } from '#/components/ui/table'
 
-import { useSemester } from '#/queries/use-semester'
+import { useStudent } from '#/queries/use-student'
+import type { AllStudent } from '#/service/student'
 
-import { semesterColumns } from './column'
+import { studentColumns } from './column'
 
-import type { Semester } from '@prisma/client'
 import type { SortingState } from '@tanstack/react-table'
 import {
   flexRender,
@@ -26,16 +26,16 @@ import { ScanSearchIcon } from 'lucide-react'
 import { useState } from 'react'
 
 type TProps = {
-  data: Array<Semester>
+  data: AllStudent
 }
 
-export function SemesterDataTable(props: TProps) {
+export function StudentDataTable(props: TProps) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const query = useSemester(props.data)
+  const query = useStudent(props.data)
 
   const table = useReactTable({
     data: query?.data ?? [],
-    columns: semesterColumns,
+    columns: studentColumns,
     debugTable: true,
     state: { sorting },
     onSortingChange: setSorting,
@@ -75,7 +75,7 @@ export function SemesterDataTable(props: TProps) {
           ) : (
             <TableRow>
               <TableCell
-                colSpan={semesterColumns.length}
+                colSpan={studentColumns.length}
                 className='h-52 md:h-80 text-center space-y-2'
               >
                 <ScanSearchIcon className='mx-auto' size='4rem' />

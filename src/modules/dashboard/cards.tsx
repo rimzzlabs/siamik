@@ -1,5 +1,10 @@
+'use client'
+
 import { Button } from '#/components/ui/button'
 import { Card, CardHeader, CardTitle } from '#/components/ui/card'
+
+import { useDashboard } from '#/queries/use-dashboard'
+import type { DashboardStatistics } from '#/service/dashboard'
 
 import {
   ArrowUpRightFromSquareIcon,
@@ -8,33 +13,35 @@ import {
   UsersIcon,
 } from 'lucide-react'
 import Link from 'next/link'
-import { random, uid } from 'radash'
+import { uid } from 'radash'
 
-const items = [
-  {
-    id: uid(64),
-    title: 'Mata Kuliah',
-    href: '/dashboard/course',
-    count: random(10, 150),
-    icon: LibraryBigIcon,
-  },
-  {
-    id: uid(64),
-    title: 'Dosen',
-    href: '/dashboard/lecturer',
-    count: random(10, 100),
-    icon: Users2Icon,
-  },
-  {
-    id: uid(64),
-    title: 'Mahasiswa',
-    href: '/dashboard/student',
-    count: random(100, 200),
-    icon: UsersIcon,
-  },
-]
+export function DashboardCards(props: DashboardStatistics) {
+  const query = useDashboard(props)
 
-export function DashboardCards() {
+  const items = [
+    {
+      id: uid(64),
+      title: 'Mata Kuliah',
+      href: '/dashboard/course',
+      count: query.data?.counter?.course ?? 0,
+      icon: LibraryBigIcon,
+    },
+    {
+      id: uid(64),
+      title: 'Dosen',
+      href: '/dashboard/lecturer',
+      count: query.data?.counter?.lecturer ?? 0,
+      icon: Users2Icon,
+    },
+    {
+      id: uid(64),
+      title: 'Mahasiswa',
+      href: '/dashboard/student',
+      count: query.data?.counter?.student ?? 0,
+      icon: UsersIcon,
+    },
+  ]
+
   return (
     <div className='grid grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),1fr))] gap-2'>
       {items.map((item) => (
