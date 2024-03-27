@@ -14,7 +14,7 @@ export function SemesterPageTitle() {
   const query = useSemester()
   const [dialogOpen, toggleDialogOpen] = useToggle()
 
-  const REACHED_LIMIT = query.data.length === 6
+  const REACHED_LIMIT = query.data?.length === 6
 
   return (
     <Fragment>
